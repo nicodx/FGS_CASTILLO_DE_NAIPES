@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FGS - Un fondo de pensión outlier</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&display=swap">
+<style>
+:root{--bg:#fff;--fg:#111;--mut:#666;--line:#d9d9d9;--acc:#1a3cff;--up:#1a7f4b;--dn:#d6232a;--soft:#f4f5f7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1115;--fg:#f2f2f2;--mut:#9aa0a6;--line:#2b2f36;--acc:#7b8fff;--up:#3ecf8e;--dn:#ff6b6b;--soft:#171a20}}
+:root[data-theme="dark"]{--bg:#0f1115;--fg:#f2f2f2;--mut:#9aa0a6;--line:#2b2f36;--acc:#7b8fff;--up:#3ecf8e;--dn:#ff6b6b;--soft:#171a20}
+html{scroll-padding-top:env(safe-area-inset-top,0px);overflow-y:scroll;scrollbar-gutter:stable}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:Archivo,Arial,Helvetica,sans-serif;line-height:1.45}
+.w{max-width:1180px;margin:0 auto;padding:0 18px}
+header{border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.logo{font-weight:900;font-size:clamp(18px,3.2vw,28px);letter-spacing:-1px}.logo i{color:var(--acc);font-style:normal}
+nav{display:flex;gap:4px;overflow-x:auto;align-items:baseline;padding-bottom:0}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mut);font:600 15px Archivo,Arial,sans-serif;padding:8px 12px;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--fg);border-color:var(--acc)}
+#th{background:none;border:1px solid var(--line);color:var(--fg);border-radius:20px;padding:4px 10px;cursor:pointer;font:600 12px Archivo,Arial,sans-serif}
+.g{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:36px;margin:26px auto 50px}
+@media(max-width:860px){.g{grid-template-columns:1fr}}
+h1{font-weight:900;font-size:40px;line-height:1.05;letter-spacing:-1.2px;margin:6px 0 10px}
+h2{font-weight:900;font-size:28px;letter-spacing:-.6px;margin:0 0 6px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:17px;margin:0 0 4px}
+.k{font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--mut);text-transform:uppercase}
+.lead{font-size:18px;color:var(--mut)}ul.b{padding-left:18px}ul.b li::marker{color:var(--acc)}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0}
+.kp div{background:var(--bg);padding:12px}.kp b{display:block;font-size:26px;font-weight:900;letter-spacing:-.8px}.kp span{font-size:12px;color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:11px;color:var(--mut);text-transform:uppercase;border-bottom:1px solid var(--line);padding:6px 4px}
+td{padding:9px 4px;border-bottom:1px solid var(--line)}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.u{color:var(--up)}.d{color:var(--dn)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.seg button{border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:6px 12px;font:600 13px Archivo,Arial,sans-serif;cursor:pointer;border-radius:3px}
+.seg button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.row{display:grid;grid-template-columns:minmax(120px,1.3fr) 2fr 70px;gap:10px;align-items:center;padding:5px 0;font-size:13px;cursor:pointer}
+.row:hover{background:var(--soft)}.bar{height:16px;background:var(--soft);position:relative}.bar i{display:block;height:100%;background:var(--acc)}
+.row.sel .bar i{background:var(--dn)}
+#det{background:var(--soft);padding:10px 12px;margin-top:10px;font-size:14px;border-left:4px solid var(--acc)}
+.card{border:1px solid var(--line);padding:14px;margin:10px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.cards .card{margin:0}.box{border-top:3px solid var(--fg);padding-top:8px;margin-bottom:26px}
+aside .box{background:var(--soft);padding:12px}
+.note{font-size:12px;color:var(--mut)}section{display:none}section.on{display:block}
+.row.s{cursor:default}.row.s:hover{background:none}.bar i.o{background:var(--mut)}.nx{margin-top:22px;background:none;border:1px solid var(--fg);color:var(--fg);padding:8px 14px;font:700 13px Archivo,Arial,sans-serif;cursor:pointer}
+svg text{font-family:Archivo,Arial,sans-serif;fill:currentColor}
+</style></head><body>
+<header><div class="w"><div class="top"><div class="logo">FGS <i>-</i> Un fondo de pensión outlier</div><button id="th" aria-label="Cambiar tema">◐ Tema</button></div>
+<nav id="nav"><button data-t="res" class="on">Resumen</button><button data-t="car">Cartera</button><button data-t="ben">Benchmark</button><button data-t="tes">Tesis</button><button data-t="con">Contexto</button><button data-t="not">Notas</button></nav></div></header>
+<div class="w g"><main>
+
+<section id="res" class="on">
+<div class="k">Análisis · 7 oct 2026</div>
+<h1>FGS, deuda y tasa de riesgo país: ¿amortiguador coyuntural o fragilidad circular?</h1>
+<p class="lead">Casi 80% del Fondo de Garantía de Sustentabilidad está atado al Tesoro. Qué hay en la cartera de agosto y por qué importa para tasas, inversión y riesgo previsional.</p>
+<ul class="b"><li>Cartera de $125,46 billones (≈ USD 78.605 M), -0,5% m/m en pesos y -1,7% en USD.</li><li>78,5% en deuda soberana; 45,1% en CER puro, la mayor apuesta individual.</li><li>Riesgo país en 655 pb al 2-oct (máximo del año, según la nota del autor).</li></ul>
+<div class="kp"><div><b>$125,5 B</b><span>Cartera total</span></div><div><b>78,5%</b><span>Deuda soberana</span></div><div><b>33,2%</b><span>Solo bonos CER (TPN)</span></div><div><b>14,4%</b><span>Hard-dollar y PBI en USD/€ sobre FGS*</span></div></div>
+<h2>Indicadores · agosto 2026</h2>
+<table id="mv"><thead><tr><th>Indicador</th><th class="n">Nivel</th><th class="n">Mes</th><th class="n">2026</th><th class="n">Interanual</th></tr></thead><tbody></tbody></table>
+<p class="note">Fuente: Informe Estadístico Mensual FGS, ago-2026 (ANSES). Mes/2026/i.a. en %; en tasas, diferencias en p.p. *USD+EUR identificables en TPN.</p>
+<h2 style="margin-top:28px">Lo que sugieren los números</h2>
+<div class="cards"><div class="card"><h3>Rendimiento real</h3>+18,2% nominal en 2026 vs IPC +21,3%: ≈ <b class="d">-2,6% real</b>. En 12 meses, +48,9% vs +33,5%: <b class="u">+11,5% real</b>.</div>
+<div class="card"><h3>Atraso cambiario</h3>IPC +33,5% i.a. vs oficial +14,0%: apreciación real de ≈ 15% (sin ajustar inflación externa).</div>
+<div class="card"><h3>Tasas reales ≈ 0</h3>BADLAR 23% con inflación mensual de 1,7% (≈ 22% anualizado). La baja desde 58% responde al régimen macro, no solo al FGS.</div></div>
+<button class="nx" data-go="car">Ver la cartera →</button></section>
+
+<section id="car"><h2>Cartera del FGS · ago-2026</h2>
+<p class="note">Una fila por instrumento/moneda/ajuste. Cliqueá una barra para ver el detalle. “No informado”: el IEM no desagrega moneda ni ajuste fuera de los TPN.</p>
+<div class="k">Agrupar por</div><div class="seg" id="gk"><button data-k="t" class="on">Instrumento</button><button data-k="m">Moneda</button><button data-k="a">Ajuste</button></div>
+<div class="k">Filtrar moneda</div><div class="seg" id="fm"><button data-f="" class="on">Todas</button><button data-f="ARS">ARS</button><button data-f="USD">USD</button><button data-f="EUR">EUR</button><button data-f="No informado">No informado</button></div>
+<div id="bars"></div><div id="det"></div>
+<button class="nx" data-go="ben">Ver el benchmark →</button></section>
+
+<section id="ben"><h2>Benchmark internacional: el FGS frente a otros fondos previsionales</h2>
+<p class="lead" style="font-size:16px">Cifras de la OCDE citadas en la nota: fondos públicos de reserva previsional (PPRF), asignación promedio 2024.</p>
+<div class="k">Asignación de cartera · % del total</div>
+<div class="row s"><span>Bonos · FGS (deuda soberana)</span><div class="bar"><i style="width:78.5%"></i></div><b style="text-align:right">78,5%</b></div>
+<div class="row s"><span>Bonos · OCDE PPRF</span><div class="bar"><i class="o" style="width:42.5%"></i></div><b style="text-align:right">42,5%</b></div>
+<div class="row s"><span>Acciones · FGS</span><div class="bar"><i style="width:13.7%"></i></div><b style="text-align:right">13,7%</b></div>
+<div class="row s"><span>Acciones · OCDE PPRF</span><div class="bar"><i class="o" style="width:40.5%"></i></div><b style="text-align:right">40,5%</b></div>
+<div class="kp"><div><b class="d">+38 p.p.</b><span>Renta fija FGS (≈80,5%)* vs. OCDE (42,5%)</span></div><div><b class="d">-26,8 p.p.</b><span>Acciones FGS vs. OCDE</span></div><div><b>8% → 4%</b><span>Fondos de pensión OCDE en bonos domésticos, 2007 → 2025</span></div></div>
+<p class="note">*Renta fija FGS = deuda soberana (78,5%) + ON (0,3%) + títulos de entes estatales (1,8%). “Bonos” de la OCDE incluye deuda corporativa y externa, por lo que la comparación es indicativa, no homogénea.</p>
+<h3>Cómo leerlo</h3>
+<ul class="b"><li>Mientras los fondos de la OCDE reducen su peso en deuda doméstica, el FGS lo aumenta: las partidas de deuda pública son cada vez más preponderantes en su cartera.</li><li>Concentrar ahorro previsional en deuda del propio soberano no es una característica universal; Argentina es un caso extremo, no el promedio.</li><li>Que otros fondos financien a sus Estados no es el problema: lo es la escala de la concentración y su correlación con la solvencia fiscal.</li></ul>
+<h3>Países de referencia (lectura cualitativa)</h3>
+<table><thead><tr><th>País / grupo</th><th>Qué hace</th><th>Dependencia del propio soberano</th></tr></thead><tbody>
+<tr><td><b>Argentina (FGS)</b></td><td>78,5% de la cartera en deuda pública nacional; 45% atado a CER.</td><td class="d"><b>Muy alta</b></td></tr>
+<tr><td>España</td><td>Fondo de Reserva casi todo en deuda propia; se vació financiando déficit previsional.</td><td>Alta</td></tr>
+<tr><td>EE.UU.</td><td>Trust Fund en Treasuries no negociables: no mueven tasas de mercado.</td><td>Alta, intragubernamental</td></tr>
+<tr><td>Brasil, México, Chile, Perú, Colombia</td><td>Fondos de pensión con alta carga de deuda local; NTN-B ≈ CER.</td><td>Media-alta</td></tr>
+<tr><td>Hungría, Polonia</td><td>Nacionalizaron el pilar privado: análogo a las AFJP de 2008.</td><td>Alta</td></tr>
+<tr><td>Noruega, Canadá, Corea</td><td>Diversificación global, sin dependencia del propio soberano.</td><td class="u">Baja</td></tr></tbody></table>
+<p class="note">Fuente OCDE según la nota del autor. Los países figuran sin cifras comparables; la columna de dependencia es una lectura cualitativa, no un dato medido.</p>
+<button class="nx" data-go="tes">Ver la tesis →</button></section>
+
+<section id="tes"><h2>La tesis: una relación circular</h2>
+<svg viewBox="0 0 520 250" width="100%" role="img" aria-label="Ciclo Estado, Deuda, FGS, Activo previsional">
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="currentColor"/></marker></defs>
+<g fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar)"><path d="M150 62 H215"/><path d="M335 62 H390"/><path d="M440 90 V160"/><path d="M390 190 H330"/><path d="M215 190 H150"/><path d="M80 160 V92"/></g>
+<g font-size="14" font-weight="800" text-anchor="middle"><rect x="20" y="30" width="130" height="60" fill="var(--soft)" stroke="var(--line)"/><text x="85" y="66">Estado</text>
+<rect x="220" y="30" width="115" height="60" fill="var(--soft)" stroke="var(--line)"/><text x="278" y="66">Deuda</text>
+<rect x="390" y="30" width="120" height="60" fill="var(--acc)"/><text x="450" y="66" style="fill:#fff">FGS</text>
+<rect x="335" y="160" width="175" height="60" fill="var(--soft)" stroke="var(--line)"/><text x="422" y="196">Activo previsional</text>
+<rect x="20" y="160" width="130" height="60" fill="var(--soft)" stroke="var(--line)"/><text x="85" y="196">Pasivo del Estado</text></g></svg>
+<p>Cuanto mayor la circularidad, menor la independencia entre la solvencia fiscal y la solvencia patrimonial del sistema previsional: <b>riesgo correlación 1</b>.</p>
+<h3>Mecanismo plausible</h3>
+<p>FGS → demanda estructural de títulos públicos → menor presión vendedora → precios algo mayores → tasas implícitas algo menores → menor costo de refinanciación doméstica.</p>
+<div class="cards"><div class="card"><div class="k">Hecho</div>Exposición extraordinariamente alta a deuda pública (67% dentro del límite del art. 74; 78,5% agregada).</div>
+<div class="card"><div class="k">Mecanismo</div>Tenedor cautivo y de baja rotación que achica el free float y amortigua volatilidad.</div>
+<div class="card"><div class="k">Contexto</div>Antecedentes extensos de controles y direccionamiento de crédito en Argentina.</div>
+<div class="card"><div class="k">Hipótesis</div>La arquitectura podría operar cada vez más como sostén de la demanda de deuda soberana.</div></div>
+<div id="det2" class="card" style="border-left:4px solid var(--dn)"><b>Matiz clave:</b> el informe es una foto de stock valuado, no de flujos. No prueba compras activas. La indexación al CER tiene lógica de ALM (pasivos previsionales ajustados por inflación); el problema es el <i>wrong-way risk</i>.</div>
+<button class="nx" data-go="con">Ver el contexto →</button></section>
+
+<section id="con"><h2>Contexto y comparación internacional</h2>
+<h3>La paradoja</h3>
+<p>Exportaciones al alza (agro, minería, Vaca Muerta, más conflicto bélico que mueve precios) pero inversión agregada en caída y riesgo país arriba. No es tan paradójico: son sectores de enclave, intensivos en capital y de bajo multiplicador interno; el riesgo país valúa solvencia y marco institucional, no la balanza comercial.</p>
+
+<h3>El doble rol del FGS</h3>
+<p>Financia al Estado y, a la vez, tiene 44,3% de su cartera accionaria en energía y proyectos productivos concentrados en petróleo y gas, energía e infraestructura. Pero los créditos ANSES cayeron 40,3% en 2026.</p>
+<button class="nx" data-go="not">Ver notas →</button></section>
+
+<section id="not"><h2>Preguntas abiertas y notas</h2>
+<div class="card"><h3>1. ¿Cuánto más alta sería la tasa doméstica sin el FGS?</h3>O: ¿cuánto caería el precio de los bonos si el fondo rotara a renta variable u otros activos?</div>
+<div class="card"><h3>2. ¿Ayuda a financiar o solo traslada riesgo?</h3>Estabilizador financiero vs. socialización intertemporal del riesgo soberano. Probablemente haya algo de ambos.</div>
+<div class="card"><h3>3. El test definitivo</h3>Sustituir progresivamente la demanda institucional por capital privado a tasas competitivas.</div>
+<h3>Advertencias de método</h3><ul class="b"><li>El 17,8% USD+EUR del gráfico del IEM no logra replicarse: sobre deuda soberana total da 18,7% y sobre TPN ≈ 22%. Confirmar con ANSES antes de citar.</li><li>Límite del 70% en títulos públicos vigente hasta el 31-dic-2027 (Decreto 846/2024), según la nota.</li><li>El riesgo país (655 pb) proviene de la nota del autor; no fue verificado de forma independiente.</li><li>Benchmark: solo las cifras de la OCDE son numéricas; las comparaciones por país son cualitativas. Bonos OCDE y renta fija del FGS no son perímetros idénticos.</li><li>No es asesoramiento de inversión.</li></ul>
+<p class="note">Elaborado a partir de la nota de Nicolás Amábili (3-oct-2026) y el IEM FGS ago-2026 de ANSES.</p></section>
+</main>
+
+<aside><div class="box"><h3>FGS ahora</h3>
+<div class="seg" id="ct"><button data-c="p" class="on">Pesos</button><button data-c="u">USD</button><button data-c="s">% Soberano</button></div>
+<div id="ch"></div><div class="note" id="cn"></div></div>
+<div class="box"><div class="k">Lo más leído</div><h3 style="margin-top:6px">CER: 45% del fondo atado a inflación</h3><p class="note">Sumando CER puro y CER/TAMAR, casi 47%. Cobertura cambiaria baja: ≈ 15% en USD, € y dólar-linked.</p></div></aside></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const R=[["Título Público Nacional - Bono","ARS","CER",41595564],["Título Público Nacional - Bono","USD","Tasa fija",14929020],["Título Público Nacional - Bono","ARS","TAMAR",9266405],["Título Público Nacional - Bono","ARS","Tasa fija",6185721],["Título Público Nacional - Letra","ARS","No informado",4524371],["Título Público Nacional - Letra","USD","No informado",2693482],["Título Público Nacional - Bono","ARS","CER/TAMAR",2368753],["Título Público Nacional - Bono","ARS","Dólar-linked",1100599],["Título Público Nacional - Bono","USD","PBI",429514],["Título Público Nacional - Bono","EUR","PBI",338556],["Título Público Nacional - Bono","ARS","BADLAR",21252],["Título Público Nacional - Bono","ARS","PBI",501],["Bono Público Garantizado","ARS","CER",656075],["Bono Cuasipar","ARS","CER",14372581],["Acciones","No informado","No informado",17215895],["Proyectos Productivos e Infraestructura","No informado","No informado",4375634],["Títulos Emitidos por Entes Estatales","No informado","No informado",2214138],["Plazo Fijo","No informado","No informado",1742670],["Fondos Comunes de Inversión","No informado","No informado",606160],["Obligaciones Negociables","No informado","No informado",326773],["Préstamos a Beneficiarios y Trabajadores SIPA","ARS","No informado",256569],["Disponibilidades","No informado","No informado",201928],["Préstamos a Beneficiarios No SIPA","ARS","No informado",21849],["Otros","No informado","No informado",12787]].map(([t,m,a,v])=>({t,m,a,v}));
+const TOT=125456797,f2=(n,d=2)=>n.toLocaleString("es-AR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const MV=[["Cartera FGS en $ (millones)",f2(125456797,0),-0.5,18.2,48.9],["Cartera FGS en USD (millones)",f2(78605,0),-1.7,12.9,26.4],["S&P Merval",f2(3033848,0),-7.8,-0.6,52.9],["IAMC General $",f2(1061456,0),-0.4,18.3,43.5],["Dólar CCL",f2(1596.05),1.3,4.7,17.8],["Dólar BCRA Com. 3500",f2(1509.47),1.4,3.4,14.0],["BADLAR (%)",f2(23),1.4,-3.7,-35.0],["TAMAR (%)",f2(24.69),1.4,-4.2,-41.5],["IPC INDEC",f2(12276.8,1),1.7,21.3,33.5]];
+const cl=v=>`<td class="n ${v<0?"d":"u"}">${v<0?"▼":"▲"} ${f2(Math.abs(v),1)}</td>`;
+$("#mv tbody").innerHTML=MV.map(r=>`<tr><td><b>${r[0]}</b></td><td class="n">${r[1]}</td>${cl(r[2])}${cl(r[3])}${cl(r[4])}</tr>`).join("");
+let K="t",F="",S=null;
+function bars(){const m={};R.filter(r=>!F||r.m===F).forEach(r=>{const k=r[K];m[k]=(m[k]||{v:0,n:0});m[k].v+=r.v;m[k].n++});
+const L=Object.entries(m).sort((a,b)=>b[1].v-a[1].v),mx=L[0]?L[0][1].v:1;
+$("#bars").innerHTML=L.map(([k,o])=>`<div class="row ${S===k?"sel":""}" data-k="${k}"><span>${k}</span><div class="bar"><i style="width:${o.v/mx*100}%"></i></div><b style="text-align:right">${f2(o.v/TOT*100,1)}%</b></div>`).join("");
+const tv=L.reduce((s,[,o])=>s+o.v,0);$("#det").innerHTML=S&&m[S]?`<b>${S}</b>: $${f2(m[S].v/1e6)} billones · ${f2(m[S].v/TOT*100)}% del FGS · ${m[S].n} fila(s)`:`Total visible: $${f2(tv/1e6)} billones (${f2(tv/TOT*100,1)}% del FGS)`;
+$$("#bars .row").forEach(e=>e.onclick=()=>{S=e.dataset.k;bars()})}
+$("#gk").onclick=e=>{if(!e.target.dataset.k)return;K=e.target.dataset.k;S=null;$$("#gk button").forEach(b=>b.classList.toggle("on",b===e.target));bars()};
+$("#fm").onclick=e=>{if(e.target.dataset.f===undefined)return;F=e.target.dataset.f;S=null;$$("#fm button").forEach(b=>b.classList.toggle("on",b===e.target));bars()};
+bars();
+const LB=["may-26","jun-26","jul-26","ago-26"],CH={p:{v:[119.99,123.42,126.06,125.46],u:" B$",n:"Billones de pesos. Fuente: IEM FGS."},u:{v:[80.65,79.23,79.98,78.6],u:" USD mm",n:"Miles de millones de USD."},s:{v:[77.6,77.7,77.2,78.5],u:"%",n:"TPN + garantizados + Cuasipar, % del FGS."}};
+function chart(k){const c=CH[k],v=c.v,mn=Math.min(...v),mx=Math.max(...v),W=300,H=150,p=28,x=i=>p+i*(W-2*p)/3,y=a=>H-24-(a-mn)/(mx-mn||1)*(H-60);
+const pts=v.map((a,i)=>`${x(i)},${y(a)}`).join(" ");
+$("#ch").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline points="${pts}" fill="none" stroke="var(--acc)" stroke-width="2.5"/>${v.map((a,i)=>`<circle cx="${x(i)}" cy="${y(a)}" r="4" fill="var(--acc)"/><text x="${x(i)}" y="${y(a)-9}" font-size="11" font-weight="700" text-anchor="middle">${f2(a,k=="s"?1:2)}</text><text x="${x(i)}" y="${H-6}" font-size="10" text-anchor="middle" style="opacity:.6">${LB[i]}</text>`).join("")}</svg>`;$("#cn").textContent=c.n}
+$("#ct").onclick=e=>{if(!e.target.dataset.c)return;$$("#ct button").forEach(b=>b.classList.toggle("on",b===e.target));chart(e.target.dataset.c)};chart("p");
+function go(t){$$("section").forEach(s=>s.classList.toggle("on",s.id===t));$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));scrollTo({top:0})}
+$("#nav").onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};$$(".nx").forEach(b=>b.onclick=()=>go(b.dataset.go));
+$("#th").onclick=()=>{const d=document.documentElement,dk=d.dataset.theme?d.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;d.dataset.theme=dk?"light":"dark"};
+</script></body></html>
