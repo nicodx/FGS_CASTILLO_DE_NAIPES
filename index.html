@@ -9,6 +9,7 @@
 :root[data-theme="dark"]{--bg:#0f1115;--fg:#f2f2f2;--mut:#9aa0a6;--line:#2b2f36;--acc:#7b8fff;--up:#3ecf8e;--dn:#ff6b6b;--soft:#171a20}
 html{scroll-padding-top:env(safe-area-inset-top,0px);overflow-y:scroll;scrollbar-gutter:stable}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:Archivo,Arial,Helvetica,sans-serif;line-height:1.45}
+.src{background:var(--soft);border-bottom:1px solid var(--line);font-size:15px;font-style:normal;color:var(--mut);padding:8px 0}.src a{color:var(--acc);text-decoration:none}.src a:hover{text-decoration:underline}
 .w{max-width:1180px;margin:0 auto;padding:0 18px}
 header{border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
 .top{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
@@ -43,6 +44,7 @@ aside .box{background:var(--soft);padding:12px}
 .row.s{cursor:default}.row.s:hover{background:none}.bar i.o{background:var(--mut)}.nx{margin-top:22px;background:none;border:1px solid var(--fg);color:var(--fg);padding:8px 14px;font:700 13px Archivo,Arial,sans-serif;cursor:pointer}
 svg text{font-family:Archivo,Arial,sans-serif;fill:currentColor}
 </style></head><body>
+<div class="src"><div class="w">Fuente: <a href="https://centralpyme.com.ar/" target="_blank" rel="noopener">https://centralpyme.com.ar/</a></div></div>
 <header><div class="w"><div class="top"><div class="logo">FGS <i>-</i> Un fondo de pensión outlier</div><button id="th" aria-label="Cambiar tema">◐ Tema</button></div>
 <nav id="nav"><button data-t="res" class="on">Resumen</button><button data-t="car">Cartera</button><button data-t="ben">Benchmark</button><button data-t="tes">Tesis</button><button data-t="con">Contexto</button><button data-t="not">Notas</button></nav></div></header>
 <div class="w g"><main>
